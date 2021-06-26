@@ -10,12 +10,17 @@ import {
 } from 'react-icons/md';
 import BtnIcon from '@/components/ui/BtnIcon';
 
-const StyledBar = styled.footer`
+const StyledBar = styled.nav`
 	background-color: var(--color-bg);
 	padding: 0 1.8rem;
+	height: var(--bottom-bar-height);
+	overflow-x: auto;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	> * {
+		flex-shrink: 0;
+	}
 `;
 
 const RightBottomBar = styled.div`
@@ -38,7 +43,7 @@ const RightBottomBar = styled.div`
 		width: 1px;
 	}
 	.meeting-code {
-		height: 8rem;
+		height: var(--bottom-bar-height);
 		margin: 0 0.6rem 0 1.2rem;
 		white-space: nowrap;
 		display: flex;
@@ -59,24 +64,49 @@ function MeetingBottomBar() {
 				<span className="meeting-code">{meeting}</span>
 			</RightBottomBar>
 			<div>
-				<BtnIcon color="dark">
+				<BtnIcon
+					data-tooltip="Disable microphone"
+					data-tooltip-placement="center top"
+					color="dark"
+				>
 					<MdMic size="30" color="#e8eaed" />
 				</BtnIcon>
-				<BtnIcon color="dark">
+				<BtnIcon
+					data-tooltip="Disable camera"
+					data-tooltip-placement="center top"
+					color="dark"
+				>
 					<MdVideocam size="30" color="#e8eaed" />
 				</BtnIcon>
-				<BtnIcon color="error" circle={false}>
+				<BtnIcon
+					data-tooltip="Leave videocall"
+					data-tooltip-placement="center top"
+					color="error"
+					circle={false}
+				>
 					<MdCallEnd size="30" color="#e8eaed" />
 				</BtnIcon>
 			</div>
 			<div>
-				<BtnIcon size="lg">
+				<BtnIcon
+					data-tooltip="Meeting's details"
+					data-tooltip-placement="center top"
+					size="lg"
+				>
 					<MdInfoOutline size="24" color="#fff" />
 				</BtnIcon>
-				<BtnIcon size="lg">
+				<BtnIcon
+					data-tooltip="Show all members"
+					data-tooltip-placement="center top"
+					size="lg"
+				>
 					<MdPeopleOutline size="24" color="#fff" />
 				</BtnIcon>
-				<BtnIcon size="lg">
+				<BtnIcon
+					data-tooltip="Chat"
+					data-tooltip-placement="center top"
+					size="lg"
+				>
 					<MdChat size="24" color="#fff" />
 				</BtnIcon>
 			</div>

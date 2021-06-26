@@ -33,6 +33,11 @@ const BtnIcon = styled.button<BtnIconProps>`
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	transition: 0.25s ease-in-out;
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
 `;
 
 export default BtnIcon;

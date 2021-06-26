@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Layout from '@/components/Layout';
-import MeetingContent from '@/components/MeetingContent';
-import MeetingBottomBar from '@/components/MeetingBottomBar';
+import Layout from '@/components/layout/Layout';
+import MeetingContent from '@/components/meeting/MeetingContent';
+import MeetingBottomBar from '@/components/meeting/MeetingBottomBar';
+import MembersGrid from '@/components/meeting/MembersGrid';
+import ChatSidebar from '@/components/chat/ChatSidebar';
 
 interface MeetingPageProps {
 	meeting: string;
@@ -27,7 +29,8 @@ function MeetingPage() {
 		<Layout title={`Meet - ${meeting}`}>
 			<StyledPage>
 				<MeetingContent>
-					<h1>Meeting Page</h1>
+					<MembersGrid />
+					<ChatSidebar />
 				</MeetingContent>
 				<MeetingBottomBar />
 			</StyledPage>
