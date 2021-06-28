@@ -1,15 +1,13 @@
-import styled from 'styled-components';
 import { MdClear } from 'react-icons/md';
 import Sidebar from '../layout/Sidebar';
 import SidebarTop from '../layout/SidebarTop';
 import BtnIcon from '../ui/BtnIcon';
-import ChatConversation from './ChatConversation';
-import ChatSend from './ChatSend';
+import MemberList from './MemberList';
 
-function ChatSidebar() {
+function MembersSidebar() {
 	return (
 		<Sidebar className="show">
-			<SidebarTop title="Call's messages">
+			<SidebarTop title="People">
 				<BtnIcon
 					aria-label="Close"
 					data-tooltip="Close"
@@ -18,10 +16,9 @@ function ChatSidebar() {
 					<MdClear size="24" color="#fff" />
 				</BtnIcon>
 			</SidebarTop>
-			<ChatConversation />
-			<ChatSend />
+			<MemberList />
 		</Sidebar>
 	);
 }
 
-export default ChatSidebar;
+export default MembersSidebar;

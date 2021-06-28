@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { UiProvider } from '@/context/UiContext';
 import Layout from '@/components/layout/Layout';
 import MeetingContent from '@/components/meeting/MeetingContent';
 import MeetingBottomBar from '@/components/meeting/MeetingBottomBar';
 import MembersGrid from '@/components/meeting/MembersGrid';
 import ChatSidebar from '@/components/chat/ChatSidebar';
+import MembersSidebar from '@/components/members/MembersSidebar';
 
 interface MeetingPageProps {
 	meeting: string;
@@ -28,11 +30,14 @@ function MeetingPage() {
 	return (
 		<Layout title={`Meet - ${meeting}`}>
 			<StyledPage>
-				<MeetingContent>
-					<MembersGrid />
-					<ChatSidebar />
-				</MeetingContent>
-				<MeetingBottomBar />
+				<UiProvider>
+					<MeetingContent>
+						<MembersGrid />
+						{/* <ChatSidebar /> */}
+						<MembersSidebar />
+					</MeetingContent>
+					<MeetingBottomBar />
+				</UiProvider>
 			</StyledPage>
 		</Layout>
 	);
