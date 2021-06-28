@@ -4,9 +4,6 @@ import { UiProvider } from '@/context/UiContext';
 import Layout from '@/components/layout/Layout';
 import MeetingContent from '@/components/meeting/MeetingContent';
 import MeetingBottomBar from '@/components/meeting/MeetingBottomBar';
-import MembersGrid from '@/components/meeting/MembersGrid';
-import ChatSidebar from '@/components/chat/ChatSidebar';
-import MembersSidebar from '@/components/members/MembersSidebar';
 
 interface MeetingPageProps {
 	meeting: string;
@@ -31,11 +28,7 @@ function MeetingPage() {
 		<Layout title={`Meet - ${meeting}`}>
 			<StyledPage>
 				<UiProvider>
-					<MeetingContent>
-						<MembersGrid />
-						{/* <ChatSidebar /> */}
-						<MembersSidebar />
-					</MeetingContent>
+					<MeetingContent />
 					<MeetingBottomBar />
 				</UiProvider>
 			</StyledPage>

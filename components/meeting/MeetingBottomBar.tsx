@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import {
@@ -8,6 +9,7 @@ import {
 	MdPeopleOutline,
 	MdVideocam,
 } from 'react-icons/md';
+import { UiContext } from '@/context/UiContext';
 import BtnIcon from '@/components/ui/BtnIcon';
 
 const StyledBar = styled.nav`
@@ -56,6 +58,12 @@ function MeetingBottomBar() {
 
 	const { meeting } = router.query;
 
+	const {
+		uiState: { isChatVisible, isMembersVisible },
+		toggleChat,
+		toggleMembers,
+	} = React.useContext(UiContext);
+
 	return (
 		<StyledBar>
 			<RightBottomBar>
@@ -99,15 +107,25 @@ function MeetingBottomBar() {
 					data-tooltip="Show all members"
 					data-tooltip-placement="center top"
 					size="lg"
+					onClick={toggleMembers}
 				>
-					<MdPeopleOutline size="24" color="#fff" />
+					<MdPeopleOutline
+						size="24"
+						color={
+							isMembersVisible ? 'var(--color-primary)' : '#fff'
+						}
+					/>
 				</BtnIcon>
 				<BtnIcon
 					data-tooltip="Chat"
 					data-tooltip-placement="center top"
 					size="lg"
+					onClick={toggleChat}
 				>
-					<MdChat size="24" color="#fff" />
+					<MdChat
+						size="24"
+						color={isChatVisible ? 'var(--color-primary)' : '#fff'}
+					/>
 				</BtnIcon>
 			</div>
 		</StyledBar>

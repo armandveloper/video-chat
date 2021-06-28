@@ -24,6 +24,18 @@ const uiReducer = (state: UiState, action: Action): UiState => {
 				isChatVisible: false,
 			};
 
+		case types.UI_CLOSE_CHAT:
+			return {
+				...state,
+				isChatVisible: false,
+			};
+
+		case types.UI_CLOSE_MEMBERS:
+			return {
+				...state,
+				isMembersVisible: false,
+			};
+
 		default:
 			return state;
 	}

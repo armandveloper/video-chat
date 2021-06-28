@@ -1,11 +1,15 @@
+import * as React from 'react';
 import styled from 'styled-components';
+import { UiContext } from '@/context/UiContext';
 
-const Grid = styled.div`
-	flex: 1;
+const Grid = styled.div<{ expanded: boolean }>`
+	flex-basis: ${({ expanded }) =>
+		expanded ? '100%' : 'calc(100% - var(--sidebar-width))'};
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 	gap: 1.5rem 1rem;
 	align-content: start;
+	transition: flex-basis 0.3s ease;
 `;
 
 const MemberTile = styled.div`
@@ -16,8 +20,12 @@ const MemberTile = styled.div`
 `;
 
 function MembersGrid() {
+	const {
+		uiState: { isChatVisible, isMembersVisible },
+	} = React.useContext(UiContext);
+
 	return (
-		<Grid>
+		<Grid expanded={!isChatVisible && !isMembersVisible}>
 			<MemberTile>Member 1</MemberTile>
 			<MemberTile>Member 2</MemberTile>
 			<MemberTile>Member 3</MemberTile>
