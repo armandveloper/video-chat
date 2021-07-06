@@ -11,6 +11,7 @@ import {
 } from 'react-icons/md';
 import { UiContext } from '@/context/UiContext';
 import BtnIcon from '@/components/ui/BtnIcon';
+import Time from '../ui/Time';
 
 const StyledBar = styled.nav`
 	background-color: var(--color-bg);
@@ -67,7 +68,7 @@ function MeetingBottomBar() {
 	return (
 		<StyledBar>
 			<RightBottomBar>
-				<span>21:02</span>
+				<Time />
 				<div role="separator" className="separator" />
 				<span className="meeting-code">{meeting}</span>
 			</RightBottomBar>
