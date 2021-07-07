@@ -1,22 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { UiContext } from '@/context/UiContext';
+import MemberTile from './MemberTile';
 
 const Grid = styled.div<{ expanded: boolean }>`
 	flex-basis: ${({ expanded }) =>
 		expanded ? '100%' : 'calc(100% - var(--sidebar-width))'};
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 	gap: 1.5rem 1rem;
 	align-content: start;
 	transition: flex-basis 0.3s ease;
-`;
-
-const MemberTile = styled.div`
-	background-color: royalblue;
-	height: 10rem;
-	color: #fff;
-	font-size: 2rem;
 `;
 
 function MembersGrid() {
