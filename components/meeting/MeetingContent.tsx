@@ -14,7 +14,7 @@ const Meeting = styled.main`
 
 function MeetingContent() {
 	const {
-		uiState: { isChatVisible, isMembersVisible },
+		uiState: { isChatVisible, isInfoVisible, isMembersVisible },
 	} = React.useContext(UiContext);
 
 	return (
@@ -24,11 +24,13 @@ function MeetingContent() {
 				type={
 					isChatVisible
 						? 'chat'
+						: isInfoVisible
+						? 'info'
 						: isMembersVisible
 						? 'members'
 						: 'none'
 				}
-				show={isChatVisible || isMembersVisible}
+				show={isChatVisible || isInfoVisible || isMembersVisible}
 			/>
 		</Meeting>
 	);

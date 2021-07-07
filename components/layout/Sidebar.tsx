@@ -4,13 +4,14 @@ import {
 	hideSidebarAnimation,
 	showSidebarAnimation,
 } from '@/styles/animations';
-import ChatSidebar from '../chat/ChatSidebar';
-import MembersSidebar from '../members/MembersSidebar';
-import BtnIcon from '../ui/BtnIcon';
+import ChatSidebar from '@/components/chat/ChatSidebar';
+import MembersSidebar from '@/components/members/MembersSidebar';
+import InfoSidebar from '@/components/meeting/InfoSidebar';
+import BtnIcon from '@/components/ui/BtnIcon';
 
 interface SidebarProps {
 	show: boolean;
-	type: 'chat' | 'members' | 'none';
+	type: 'chat' | 'info' | 'members' | 'none';
 }
 
 const StyledSidebar = styled.aside<SidebarProps>`
@@ -54,6 +55,8 @@ function Sidebar({ show, type }: SidebarProps) {
 		>
 			{type === 'chat' ? (
 				<ChatSidebar />
+			) : type === 'info' ? (
+				<InfoSidebar />
 			) : type === 'members' ? (
 				<MembersSidebar />
 			) : null}

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import MemberItem from './MemberItem';
 import { scrollbarStyle } from '@/styles/scrollbar';
+import { sidebarHeadlineStyle } from '@/styles/typography';
 
 const List = styled.ul`
 	flex: 1;
@@ -10,10 +11,7 @@ const List = styled.ul`
 `;
 
 const Headline = styled.h3`
-	font-size: 1.4rem;
-	font-weight: 500;
-	letter-spacing: 0.01785714em;
-	margin: 1.2rem 0 0.4rem;
+	${sidebarHeadlineStyle};
 `;
 
 function MemberList() {

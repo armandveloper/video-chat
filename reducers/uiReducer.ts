@@ -3,6 +3,7 @@ import * as types from '@/types/index';
 
 export interface UiState {
 	isChatVisible: boolean;
+	isInfoVisible: boolean;
 	isMembersVisible: boolean;
 }
 
@@ -14,6 +15,15 @@ const uiReducer = (state: UiState, action: Action): UiState => {
 			return {
 				...state,
 				isChatVisible: !state.isChatVisible,
+				isInfoVisible: false,
+				isMembersVisible: false,
+			};
+
+		case types.UI_TOGGLE_INFO:
+			return {
+				...state,
+				isInfoVisible: !state.isInfoVisible,
+				isChatVisible: false,
 				isMembersVisible: false,
 			};
 
@@ -21,6 +31,7 @@ const uiReducer = (state: UiState, action: Action): UiState => {
 			return {
 				...state,
 				isMembersVisible: !state.isMembersVisible,
+				isInfoVisible: false,
 				isChatVisible: false,
 			};
 
@@ -34,6 +45,12 @@ const uiReducer = (state: UiState, action: Action): UiState => {
 			return {
 				...state,
 				isMembersVisible: false,
+			};
+
+		case types.UI_CLOSE_INFO:
+			return {
+				...state,
+				isInfoVisible: false,
 			};
 
 		default:

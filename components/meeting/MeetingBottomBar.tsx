@@ -60,8 +60,9 @@ function MeetingBottomBar() {
 	const { meeting } = router.query;
 
 	const {
-		uiState: { isChatVisible, isMembersVisible },
+		uiState: { isChatVisible, isInfoVisible, isMembersVisible },
 		toggleChat,
+		toggleInfo,
 		toggleMembers,
 	} = React.useContext(UiContext);
 
@@ -101,8 +102,12 @@ function MeetingBottomBar() {
 					data-tooltip="Meeting's details"
 					data-tooltip-placement="center top"
 					size="lg"
+					onClick={toggleInfo}
 				>
-					<MdInfoOutline size="24" color="#fff" />
+					<MdInfoOutline
+						size="24"
+						color={isInfoVisible ? 'var(--color-primary)' : '#fff'}
+					/>
 				</BtnIcon>
 				<BtnIcon
 					data-tooltip="Show all members"

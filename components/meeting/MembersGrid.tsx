@@ -15,11 +15,11 @@ const Grid = styled.div<{ expanded: boolean }>`
 
 function MembersGrid() {
 	const {
-		uiState: { isChatVisible, isMembersVisible },
+		uiState: { isChatVisible, isInfoVisible, isMembersVisible },
 	} = React.useContext(UiContext);
 
 	return (
-		<Grid expanded={!isChatVisible && !isMembersVisible}>
+		<Grid expanded={!isChatVisible && !isInfoVisible && !isMembersVisible}>
 			<MemberTile>Member 1</MemberTile>
 			<MemberTile>Member 2</MemberTile>
 			<MemberTile>Member 3</MemberTile>
