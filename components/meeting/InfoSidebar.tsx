@@ -1,9 +1,10 @@
 import * as React from 'react';
+import styled from 'styled-components';
 import { MdContentCopy, MdClear } from 'react-icons/md';
 import { UiContext } from '@/context/UiContext';
+import * as clipboard from '@/utils/clipboard';
 import SidebarTop from '../layout/SidebarTop';
 import BtnIcon from '../ui/BtnIcon';
-import styled from 'styled-components';
 
 const Headline = styled.h3`
 	font-size: 1.4rem;
@@ -35,6 +36,10 @@ const CopyLink = styled.div`
 function InfoSidebar() {
 	const { closeInfo } = React.useContext(UiContext);
 
+	const handleCopyCode = () => {
+		clipboard.copy('Código de ejemplo: 123-456-789');
+	};
+
 	return (
 		<>
 			<SidebarTop title="Meeting's details">
@@ -49,7 +54,7 @@ function InfoSidebar() {
 			</SidebarTop>
 			<Headline>Information to join</Headline>
 			<Link>https://meet.google.com/aabg-cgg-csgg</Link>
-			<CopyLink>
+			<CopyLink onClick={handleCopyCode}>
 				<MdContentCopy size="24" color="var(--color-primary)" />
 				<Link as="span">Copy information to join the call</Link>
 			</CopyLink>
