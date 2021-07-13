@@ -5,7 +5,6 @@ import { UiContext } from '@/context/UiContext';
 import * as clipboard from '@/utils/clipboard';
 import SidebarTop from '../layout/SidebarTop';
 import BtnIcon from '../ui/BtnIcon';
-import Snackbar from '../ui/Snackbar';
 
 const Headline = styled.h3`
 	font-size: 1.4rem;
@@ -43,7 +42,6 @@ function InfoSidebar() {
 
 	return (
 		<>
-			<Snackbar message="hello eowlrd" />
 			<SidebarTop title="Meeting's details">
 				<BtnIcon
 					aria-label="Close"
