@@ -10,6 +10,12 @@ const Button = styled.button`
 	font-size: 1.6rem;
 	padding: 0.5rem 1rem;
 	text-align: center;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	> :first-child {
+		margin-right: 0.5rem;
+	}
 `;
 
 export default Button;
