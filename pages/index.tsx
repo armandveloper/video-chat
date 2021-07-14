@@ -1,15 +1,30 @@
-import Link from 'next/link';
+import styled from 'styled-components';
 import Layout from '@/components/layout/Layout';
+import Button from '@/components/ui/Button';
 
-const IndexPage = () => (
-	<Layout title="Home | Next.js + TypeScript Example">
-		<h1>Hello Next.js 👋</h1>
-		<p>
-			<Link href="/about">
-				<a>About</a>
-			</Link>
-		</p>
-	</Layout>
-);
+const Header = styled.header`
+	padding: 1rem 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+`;
 
-export default IndexPage;
+const Logo = styled.h1`
+	font-size: 2.6rem;
+	font-weight: 400;
+	letter-spacing: 0.1rem;
+`;
+
+function HomePage() {
+	return (
+		<Layout title="My Meet">
+			<Header>
+				<Logo>My Meet</Logo>
+				<Button>Login</Button>
+			</Header>
+			<h1>Hello</h1>
+		</Layout>
+	);
+}
+
+export default HomePage;
