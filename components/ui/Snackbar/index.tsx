@@ -7,7 +7,7 @@ interface SnackbarProps {
 	autoHideDuration?: number;
 	message: string;
 	open: boolean;
-	onDismiss: React.Dispatch<React.SetStateAction<boolean>>;
+	onDismiss: () => void;
 }
 
 const StyledSnackbar = styled.div<{ open: boolean }>`
@@ -18,7 +18,7 @@ const StyledSnackbar = styled.div<{ open: boolean }>`
 	letter-spacing: 0.015rem;
 	padding: 1rem 3.5rem 1rem 1rem;
 	position: fixed;
-	bottom: calc(var(--bottom-bar-height) + 1rem);
+	bottom: var(--bottom-bar-height);
 	left: 2rem;
 	animation: ${({ open }) =>
 			open ? slideInDownSnackbar : slideOutDownSnackbar}
@@ -38,11 +38,11 @@ function Snackbar({
 	}, [open]);
 
 	React.useEffect(() => {
-		if (autoHideDuration) {
+		if (autoHideDuration && open) {
 			const timeout = window.setTimeout(onDismiss, autoHideDuration);
 			return () => window.clearTimeout(timeout);
 		}
-	}, [autoHideDuration]);
+	}, [autoHideDuration, open]);
 
 	const handleAnimationEnd = () => {
 		if (!open) setRender(false);

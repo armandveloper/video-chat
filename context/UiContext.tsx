@@ -20,7 +20,7 @@ const initialState = {
 	isMembersVisible: false,
 	snackbar: {
 		message: '',
-		open: true,
+		open: false,
 	},
 };
 

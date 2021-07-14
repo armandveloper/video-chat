@@ -34,10 +34,13 @@ const CopyLink = styled.div`
 `;
 
 function InfoSidebar() {
-	const { closeInfo } = React.useContext(UiContext);
+	const { closeInfo, openSnackbar } = React.useContext(UiContext);
 
 	const handleCopyCode = () => {
-		clipboard.copy('Código de ejemplo: 123-456-789');
+		clipboard
+			.copy('Código de ejemplo: 123-456-789')
+			.then(() => openSnackbar('Meeting link copied'))
+			.catch(() => openSnackbar('Error copying meeting link'));
 	};
 
 	return (

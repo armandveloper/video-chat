@@ -79,7 +79,7 @@ const uiReducer = (state: UiState, action: Action): UiState => {
 			return {
 				...state,
 				snackbar: {
-					message: '',
+					...state.snackbar,
 					open: false,
 				},
 			};
