@@ -10,12 +10,18 @@ interface UiContextInt {
 	closeChat(): void;
 	closeInfo(): void;
 	closeMembers(): void;
+	openSnackbar(message: string): void;
+	closeSnackbar(): void;
 }
 
 const initialState = {
 	isChatVisible: false,
 	isInfoVisible: false,
 	isMembersVisible: false,
+	snackbar: {
+		message: '',
+		open: true,
+	},
 };
 
 export const UiContext = React.createContext({} as UiContextInt);
@@ -31,9 +37,14 @@ export const UiProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const closeChat = () => dispatch(ui.closeChat());
 
+	const closeInfo = () => dispatch(ui.closeInfo());
+
 	const closeMembers = () => dispatch(ui.closeMembers());
 
-	const closeInfo = () => dispatch(ui.closeInfo());
+	const openSnackbar = (message: string) =>
+		dispatch(ui.openSnackbar(message));
+
+	const closeSnackbar = () => dispatch(ui.closeSnackbar());
 
 	return (
 		<UiContext.Provider
@@ -45,6 +56,8 @@ export const UiProvider = ({ children }: { children: React.ReactNode }) => {
 				closeChat,
 				closeInfo,
 				closeMembers,
+				openSnackbar,
+				closeSnackbar,
 			}}
 		>
 			{children}

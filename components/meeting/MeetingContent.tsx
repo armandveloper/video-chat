@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { UiContext } from '@/context/UiContext';
 import MembersGrid from './MembersGrid';
 import Sidebar from '../layout/Sidebar';
+import Snackbar from '../ui/Snackbar';
 
 const Meeting = styled.main`
 	flex: 1;
@@ -14,11 +15,17 @@ const Meeting = styled.main`
 
 function MeetingContent() {
 	const {
-		uiState: { isChatVisible, isInfoVisible, isMembersVisible },
+		uiState: { isChatVisible, isInfoVisible, isMembersVisible, snackbar },
+		closeSnackbar,
 	} = React.useContext(UiContext);
 
 	return (
 		<Meeting>
+			<Snackbar
+				message={snackbar.message}
+				open={snackbar.open}
+				onDismiss={closeSnackbar}
+			/>
 			<MembersGrid />
 			<Sidebar
 				type={

@@ -1,13 +1,26 @@
-import { ToggleSidebarAction } from '@/actions/ui';
 import * as types from '@/types/index';
+
+interface SnackbarState {
+	message: string;
+	open: boolean;
+}
 
 export interface UiState {
 	isChatVisible: boolean;
 	isInfoVisible: boolean;
 	isMembersVisible: boolean;
+	snackbar: SnackbarState;
 }
 
-type Action = ToggleSidebarAction;
+export type Action =
+	| { type: typeof types.UI_TOGGLE_CHAT }
+	| { type: typeof types.UI_TOGGLE_INFO }
+	| { type: typeof types.UI_TOGGLE_MEMBERS }
+	| { type: typeof types.UI_CLOSE_CHAT }
+	| { type: typeof types.UI_CLOSE_INFO }
+	| { type: typeof types.UI_CLOSE_MEMBERS }
+	| { type: typeof types.UI_OPEN_SNACKBAR; payload: string }
+	| { type: typeof types.UI_CLOSE_SNACKBAR };
 
 const uiReducer = (state: UiState, action: Action): UiState => {
 	switch (action.type) {
@@ -53,6 +66,23 @@ const uiReducer = (state: UiState, action: Action): UiState => {
 				isInfoVisible: false,
 			};
 
+		case types.UI_OPEN_SNACKBAR:
+			return {
+				...state,
+				snackbar: {
+					message: action.payload,
+					open: true,
+				},
+			};
+
+		case types.UI_CLOSE_SNACKBAR:
+			return {
+				...state,
+				snackbar: {
+					message: '',
+					open: false,
+				},
+			};
 		default:
 			return state;
 	}
