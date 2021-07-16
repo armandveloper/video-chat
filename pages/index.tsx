@@ -2,7 +2,6 @@ import * as React from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { MdKeyboard, MdVideoCall } from 'react-icons/md';
-import { useGoogleLogin } from 'react-google-login';
 import { AuthContext } from '@/context/AuthContext';
 import LoadingScreen from '@/components/layout/LoadingScreen';
 import Layout from '@/components/layout/Layout';
@@ -145,10 +144,8 @@ function HomePage() {
 }
 
 function Login() {
-	const { googleLoginProps } = React.useContext(AuthContext);
+	const { signIn } = React.useContext(AuthContext);
 
-	const { signIn } = useGoogleLogin(googleLoginProps);
-	// My custom button return (
 	return (
 		<Button color="transparent" outline={true} onClick={signIn}>
 			<Image

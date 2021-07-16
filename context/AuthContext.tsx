@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { UseGoogleLoginProps, useGoogleLogout } from 'react-google-login';
+import {
+	GoogleLoginResponse,
+	GoogleLoginResponseOffline,
+	useGoogleLogin,
+	useGoogleLogout,
+} from 'react-google-login';
 import { CLIENT_ID, FRONTEND_URL } from 'config';
 
 interface IAuthContext {
 	checking: boolean;
 	error: string;
 	user: IUser;
-	// onSigninSuccess: (res: any) => void;
-	// onSigninFailure: (res: any) => void;
-	// verifyToken: (idToken: string) => void;
-	googleLoginProps: UseGoogleLoginProps;
+	signIn: () => void;
 	signOut: () => void;
 }
 
@@ -65,21 +67,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		}
 	};
 
-	const onSigninSuccess = (res: any) => {
-		verifyToken(res.tokenId);
+	const onSigninSuccess = (
+		res: GoogleLoginResponse | GoogleLoginResponseOffline
+	) => {
+		verifyToken((res as GoogleLoginResponse).tokenId);
 	};
-	const onSigninFailure = (res: any) => {
-		setError(res.error);
-		console.log('Login failed: res:', res);
+	const onSigninFailure = (err: any) => {
+		setError(err.error);
+		console.log('Login failed: res:', err);
 	};
 
-	const googleLoginProps = {
+	const { signIn } = useGoogleLogin({
 		onSuccess: onSigninSuccess,
 		onFailure: onSigninFailure,
 		clientId: CLIENT_ID,
 		isSignedIn: false,
-		accessType: 'offline',
-	};
+		accessType: 'online',
+	});
 
 	const onLogoutSuccess = async () => {
 		try {
@@ -108,7 +112,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	const onLogoutFailure = () => {
-		console.log('Log out failure');
+		console.log(
+			'Could not log out due to an unexpected error. Please try again later'
+		);
+		setError(
+			'Could not log out due to an unexpected error. Please try again later'
+		);
 	};
 
 	const { signOut } = useGoogleLogout({
@@ -123,7 +132,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				checking,
 				error,
 				user,
-				googleLoginProps,
+				signIn,
 				signOut,
 			}}
 		>
