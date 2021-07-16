@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { UseGoogleLoginProps } from 'react-google-login';
-import { API_URL, CLIENT_ID, FRONTEND_URL } from 'config';
+import { CLIENT_ID, FRONTEND_URL } from 'config';
 
 interface IAuthContext {
+	checking: boolean;
+	error: string;
 	user: IUser;
 	// onSigninSuccess: (res: any) => void;
 	// onSigninFailure: (res: any) => void;
@@ -20,7 +22,13 @@ interface IUser {
 export const AuthContext = React.createContext({} as IAuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+	const [checking, setChecking] = React.useState(true);
 	const [user, setUser] = React.useState<IUser>(null!);
+	const [error, setError] = React.useState<string>(null!);
+
+	React.useEffect(() => {
+		checkUserLoggedIn();
+	}, []);
 
 	const checkUserLoggedIn = async () => {
 		const res = await fetch(`${FRONTEND_URL}/api/auth/user`);
@@ -28,18 +36,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 		if (!res.ok) {
 			setUser(null!);
+			setChecking(false);
 			return;
 		}
 		setUser(data.user);
+		setChecking(false);
 	};
 
-	React.useEffect(() => {
-		checkUserLoggedIn();
-	}, []);
-
 	const verifyToken = async (idToken: string) => {
-		console.log('verificando token');
-		console.log(FRONTEND_URL);
 		try {
 			const res = await fetch(`${FRONTEND_URL}/api/auth/signin`, {
 				method: 'POST',
@@ -48,12 +52,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				},
 				body: JSON.stringify({ idToken }),
 			});
-			console.log(res);
 			const data = await res.json();
-			console.log(data);
 
-			console.log('data:');
-			console.log(data);
+			if (!data.success) {
+				setError(data.msg);
+			}
+
 			setUser(data.user);
 		} catch (err) {
 			console.log(err);
@@ -61,10 +65,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	const onSigninSuccess = (res: any) => {
-		console.log('Login Success: currentUser:', res.profileObj);
 		verifyToken(res.tokenId);
 	};
 	const onSigninFailure = (res: any) => {
+		setError(res.error);
 		console.log('Login failed: res:', res);
 	};
 
@@ -79,6 +83,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<AuthContext.Provider
 			value={{
+				checking,
+				error,
 				user,
 				googleLoginProps,
 			}}

@@ -13,7 +13,7 @@ const colors = {
 const Button = styled.button<ButtonProps>`
 	background-color: ${({ color = 'primary' }) => colors[color]};
 	border: ${({ outline = false }) =>
-		outline ? '1px solid var(--color-primary)' : 'none'};
+		outline ? '1px solid var(--color-text)' : 'none'};
 	border-radius: 0.3rem;
 	color: var(--color-text);
 	cursor: pointer;

@@ -17,6 +17,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			},
 		});
 
+		if (!apiRes.ok) {
+			res.status(403).json({ success: false, msg: 'User forbidden' });
+			return;
+		}
+
 		const data = await apiRes.json();
 
 		if (!data.success) {

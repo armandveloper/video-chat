@@ -6,6 +6,7 @@ import Layout from '@/components/layout/Layout';
 import Button from '@/components/ui/Button';
 import { MdKeyboard, MdVideoCall } from 'react-icons/md';
 import { AuthContext } from '@/context/AuthContext';
+import LoadingScreen from '@/components/layout/LoadingScreen';
 
 const Header = styled.header`
 	padding: 1rem 2rem;
@@ -96,7 +97,9 @@ const Input = styled.input`
 `;
 
 function HomePage() {
-	const { user } = React.useContext(AuthContext);
+	const { checking, user } = React.useContext(AuthContext);
+
+	if (checking) return <LoadingScreen />;
 
 	return (
 		<Layout title="My Meet">
