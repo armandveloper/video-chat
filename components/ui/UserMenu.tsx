@@ -1,5 +1,7 @@
+import * as React from 'react';
 import styled from 'styled-components';
 import { FiLogOut } from 'react-icons/fi';
+import { AuthContext } from '@/context/AuthContext';
 import Button from './Button';
 
 interface UserMenuProps {
@@ -18,6 +20,8 @@ const ProfilePhoto = styled.img`
 `;
 
 function UserMenu({ name, picture }: UserMenuProps) {
+	const { signOut } = React.useContext(AuthContext);
+
 	return (
 		<Menu>
 			<ProfilePhoto
@@ -27,7 +31,7 @@ function UserMenu({ name, picture }: UserMenuProps) {
 				height="30"
 				title={name}
 			/>
-			<Button size="sm" color="error">
+			<Button color="error" size="sm" onClick={signOut}>
 				<FiLogOut size="18" color="#fff" />
 				Logout
 			</Button>

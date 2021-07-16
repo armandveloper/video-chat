@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { UseGoogleLoginProps } from 'react-google-login';
+import { UseGoogleLoginProps, useGoogleLogout } from 'react-google-login';
 import { CLIENT_ID, FRONTEND_URL } from 'config';
 
 interface IAuthContext {
@@ -10,6 +10,7 @@ interface IAuthContext {
 	// onSigninFailure: (res: any) => void;
 	// verifyToken: (idToken: string) => void;
 	googleLoginProps: UseGoogleLoginProps;
+	signOut: () => void;
 }
 
 interface IUser {
@@ -80,6 +81,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		accessType: 'offline',
 	};
 
+	const { signOut } = useGoogleLogout({
+		onFailure: () => console.log('logout failed'),
+		clientId: CLIENT_ID,
+		onLogoutSuccess: () => console.log('Logout res:'),
+	});
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -87,6 +94,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				error,
 				user,
 				googleLoginProps,
+				signOut,
 			}}
 		>
 			{children}
