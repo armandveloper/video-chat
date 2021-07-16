@@ -15,15 +15,15 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "@/actions/*": ["actions/*"],
       "@/components/*": ["components/*"],
+      "@/config/*": ["config/*"],
+      "@/context/*": ["context/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/reducers/*": ["reducers/*"],
       "@/styles/*": ["styles/*"],
       "@/types/*": ["types/*"],
-      "@/actions/*": ["actions/*"],
-      "@/context/*": ["context/*"],
-      "@/reducers/*": ["reducers/*"],
-      "@/hooks/*": ["hooks/*"],
       "@/utils/*": ["utils/*"],
-      "@/config/*": ["config/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

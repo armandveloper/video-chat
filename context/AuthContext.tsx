@@ -22,6 +22,21 @@ export const AuthContext = React.createContext({} as IAuthContext);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = React.useState<IUser>(null!);
 
+	const checkUserLoggedIn = async () => {
+		const res = await fetch(`${FRONTEND_URL}/api/auth/user`);
+		const data = await res.json();
+
+		if (!res.ok) {
+			setUser(null!);
+			return;
+		}
+		setUser(data.user);
+	};
+
+	React.useEffect(() => {
+		checkUserLoggedIn();
+	}, []);
+
 	const verifyToken = async (idToken: string) => {
 		console.log('verificando token');
 		console.log(FRONTEND_URL);
@@ -39,7 +54,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 			console.log('data:');
 			console.log(data);
-			setUser(data);
+			setUser(data.user);
 		} catch (err) {
 			console.log(err);
 		}
@@ -57,7 +72,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		onSuccess: onSigninSuccess,
 		onFailure: onSigninFailure,
 		clientId: CLIENT_ID,
-		isSignedIn: true,
+		isSignedIn: false,
 		accessType: 'offline',
 	};
 

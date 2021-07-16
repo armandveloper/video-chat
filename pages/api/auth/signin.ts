@@ -16,11 +16,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		const data = await apiRes.json();
 
-		console.log('sign in en route:', data);
-
 		if (!data.success) {
 			res.status(401).json({
-				message: data.msg,
+				success: false,
+				msg: data.msg,
 			});
 			return;
 		}
@@ -37,12 +36,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			})
 		);
 
-		res.status(200).json(data.user);
+		console.log('token en signin', data.token);
+
+		res.status(200).json({ success: true, user: data.user });
 		return;
 	}
 
 	res.setHeader('Allow', ['POST']);
-	res.status(405).json({ message: `Method ${req.method} not allowed` });
+	res.status(405).json({ msg: `Method ${req.method} not allowed` });
 };
 
 export default handler;
