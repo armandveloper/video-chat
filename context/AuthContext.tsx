@@ -81,10 +81,40 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		accessType: 'offline',
 	};
 
+	const onLogoutSuccess = async () => {
+		try {
+			const res = await fetch(`${FRONTEND_URL}/api/auth/signout`, {
+				method: 'POST',
+			});
+
+			if (!res.ok) {
+				setError(
+					'Could not log out due to an unexpected error. Please try again later'
+				);
+				return;
+			}
+
+			const data = await res.json();
+
+			if (!data.success) {
+				setError(data.msg);
+			}
+
+			setUser(null!);
+			setError(null!);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const onLogoutFailure = () => {
+		console.log('Log out failure');
+	};
+
 	const { signOut } = useGoogleLogout({
-		onFailure: () => console.log('logout failed'),
 		clientId: CLIENT_ID,
-		onLogoutSuccess: () => console.log('Logout res:'),
+		onLogoutSuccess,
+		onFailure: onLogoutFailure,
 	});
 
 	return (

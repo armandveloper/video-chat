@@ -162,7 +162,7 @@ function Login() {
 					marginLeft: '1rem',
 				}}
 			>
-				Signin with Google
+				Sign in with Google
 			</span>
 		</Button>
 	);
