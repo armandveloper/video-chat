@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { UseGoogleLoginProps } from 'react-google-login';
+import { API_URL, CLIENT_ID, FRONTEND_URL } from 'config';
 
 interface IAuthContext {
 	user: IUser;
@@ -21,22 +22,24 @@ export const AuthContext = React.createContext({} as IAuthContext);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = React.useState<IUser>(null!);
 
-	const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-	const baseURL = process.env.NEXT_PUBLIC_API_URL;
-
 	const verifyToken = async (idToken: string) => {
+		console.log('verificando token');
+		console.log(FRONTEND_URL);
 		try {
-			const res = await fetch(`${baseURL}auth/google`, {
+			const res = await fetch(`${FRONTEND_URL}/api/auth/signin`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ idToken }),
 			});
+			console.log(res);
 			const data = await res.json();
+			console.log(data);
+
 			console.log('data:');
 			console.log(data);
-			setUser(data.user);
+			setUser(data);
 		} catch (err) {
 			console.log(err);
 		}
@@ -53,7 +56,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const googleLoginProps = {
 		onSuccess: onSigninSuccess,
 		onFailure: onSigninFailure,
-		clientId,
+		clientId: CLIENT_ID,
 		isSignedIn: true,
 		accessType: 'offline',
 	};
