@@ -1,13 +1,22 @@
 import styled from 'styled-components';
+import { BtnSizes, Colors, colors } from '@/styles/theme';
 
 interface ButtonProps {
-	color?: 'primary' | 'transparent';
+	color?: Colors;
 	outline?: boolean;
+	size?: BtnSizes;
 }
 
-const colors = {
-	primary: 'var(--color-primary)',
-	transparent: 'transparent',
+const sizes = {
+	sm: '0.3rem 0.6rem',
+	md: '0.5rem 1rem',
+	lg: '1rem 1.5rem',
+};
+
+const fontSizeMap = {
+	sm: '1.2rem',
+	md: '1.6rem',
+	lg: '1.8rem',
 };
 
 const Button = styled.button<ButtonProps>`
@@ -18,8 +27,8 @@ const Button = styled.button<ButtonProps>`
 	color: var(--color-text);
 	cursor: pointer;
 	font-family: inherit;
-	font-size: 1.6rem;
-	padding: 0.5rem 1rem;
+	font-size: ${({ size = 'md' }) => fontSizeMap[size]};
+	padding: ${({ size = 'md' }) => sizes[size]};
 	text-align: center;
 	display: inline-flex;
 	align-items: center;

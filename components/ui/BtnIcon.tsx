@@ -1,16 +1,11 @@
 import styled from 'styled-components';
+import { BtnSizes, Colors, colors } from '@/styles/theme';
 
 interface BtnIconProps {
 	circle?: boolean;
-	color?: 'primary' | 'dark' | 'error';
-	size?: 'sm' | 'md' | 'lg';
+	color?: Colors;
+	size?: BtnSizes;
 }
-
-const colors = {
-	primary: 'blue',
-	dark: 'var(--color-bg-2)',
-	error: 'var(--color-error)',
-};
 
 const sizes = {
 	sm: '3.2rem',

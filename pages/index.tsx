@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { useGoogleLogin } from 'react-google-login';
-import Layout from '@/components/layout/Layout';
-import Button from '@/components/ui/Button';
 import { MdKeyboard, MdVideoCall } from 'react-icons/md';
+import { useGoogleLogin } from 'react-google-login';
 import { AuthContext } from '@/context/AuthContext';
 import LoadingScreen from '@/components/layout/LoadingScreen';
+import Layout from '@/components/layout/Layout';
+import Button from '@/components/ui/Button';
+import UserMenu from '@/components/ui/UserMenu';
 
 const Header = styled.header`
 	padding: 1rem 2rem;
@@ -106,15 +107,7 @@ function HomePage() {
 			<Header>
 				<Logo>My Meet</Logo>
 				{user ? (
-					<div>
-						<Button>Logout</Button>
-						<img
-							src={user.picture}
-							alt={user.displayName}
-							height="28"
-							width="28"
-						/>
-					</div>
+					<UserMenu picture={user.picture} name={user.displayName} />
 				) : (
 					<Login />
 				)}
