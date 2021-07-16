@@ -1,8 +1,19 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
-	background-color: var(--color-primary);
-	border: none;
+interface ButtonProps {
+	color?: 'primary' | 'transparent';
+	outline?: boolean;
+}
+
+const colors = {
+	primary: 'var(--color-primary)',
+	transparent: 'transparent',
+};
+
+const Button = styled.button<ButtonProps>`
+	background-color: ${({ color = 'primary' }) => colors[color]};
+	border: ${({ outline = false }) =>
+		outline ? '1px solid var(--color-primary)' : 'none'};
 	border-radius: 0.3rem;
 	color: var(--color-text);
 	cursor: pointer;

@@ -1,7 +1,11 @@
+import * as React from 'react';
+import Image from 'next/image';
 import styled from 'styled-components';
+import { useGoogleLogin } from 'react-google-login';
 import Layout from '@/components/layout/Layout';
 import Button from '@/components/ui/Button';
 import { MdKeyboard, MdVideoCall } from 'react-icons/md';
+import { AuthContext } from '@/context/AuthContext';
 
 const Header = styled.header`
 	padding: 1rem 2rem;
@@ -92,38 +96,79 @@ const Input = styled.input`
 `;
 
 function HomePage() {
+	const { user } = React.useContext(AuthContext);
+
 	return (
 		<Layout title="My Meet">
 			<Header>
 				<Logo>My Meet</Logo>
-				<Button>Login</Button>
+				{user ? (
+					<div>
+						<Button>Logout</Button>
+						<img
+							src={user.picture}
+							alt={user.displayName}
+							height="28"
+							width="28"
+						/>
+					</div>
+				) : (
+					<Login />
+				)}
 			</Header>
 			<Container>
 				<Headline>
-					Create a new meeting or enter a code or link to join an
-					existing one.
+					{user
+						? 'Create a new meeting or enter a code or link to join an existing one.'
+						: 'Sign in with Google to get started'}
 				</Headline>
-				<InlineGrid>
-					<Button>
-						<MdVideoCall size="24" color="currentColor" />
-						New Meeting
-					</Button>
-					<InputWrapper>
-						<MdKeyboard
-							size="24"
-							color="currentColor"
-							opacity="0.79"
-						/>
-						<Input
-							type="text"
-							aria-label="Enter a code or link"
-							placeholder="Enter a code or link"
-						/>
-					</InputWrapper>
-					<Button>Join</Button>
-				</InlineGrid>
+				{user && (
+					<InlineGrid>
+						<Button>
+							<MdVideoCall size="24" color="currentColor" />
+							New Meeting
+						</Button>
+						<InputWrapper>
+							<MdKeyboard
+								size="24"
+								color="currentColor"
+								opacity="0.79"
+							/>
+							<Input
+								type="text"
+								aria-label="Enter a code or link"
+								placeholder="Enter a code or link"
+							/>
+						</InputWrapper>
+						<Button>Join</Button>
+					</InlineGrid>
+				)}
 			</Container>
 		</Layout>
+	);
+}
+
+function Login() {
+	const { googleLoginProps } = React.useContext(AuthContext);
+
+	const { signIn } = useGoogleLogin(googleLoginProps);
+	// My custom button return (
+	return (
+		<Button color="transparent" outline={true} onClick={signIn}>
+			<Image
+				src="/google-icon.svg"
+				alt="Google Logo"
+				width="18"
+				height="18"
+			/>
+			<span
+				style={{
+					marginLeft: '1rem',
+				}}
+			>
+				Signin with Google
+			</span>
+		</Button>
 	);
 }
 

@@ -19,7 +19,6 @@ class MyDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
-					<div id="snackbar-root"></div>
 				</body>
 			</Html>
 		);

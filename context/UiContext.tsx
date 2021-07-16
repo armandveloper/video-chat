@@ -2,7 +2,7 @@ import * as React from 'react';
 import uiReducer, { UiState } from '@/reducers/uiReducer';
 import * as ui from '@/actions/ui';
 
-interface UiContextInt {
+interface IUiContext {
 	uiState: UiState;
 	toggleChat(): void;
 	toggleInfo(): void;
@@ -24,7 +24,7 @@ const initialState = {
 	},
 };
 
-export const UiContext = React.createContext({} as UiContextInt);
+export const UiContext = React.createContext({} as IUiContext);
 
 export const UiProvider = ({ children }: { children: React.ReactNode }) => {
 	const [uiState, dispatch] = React.useReducer(uiReducer, initialState);
